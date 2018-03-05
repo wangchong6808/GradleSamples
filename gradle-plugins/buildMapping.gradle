@@ -1,0 +1,8 @@
+import greeting.mapping.GreetingPlugin
+
+apply plugin: GreetingPlugin
+
+greeting {
+   // message = 'Hi from Gradle'
+    outputFiles = files('a.txt', 'b.txt')
+}

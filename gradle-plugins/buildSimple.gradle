@@ -1,0 +1,35 @@
+import greeting.simple.GreetingPlugin
+import greeting.simple.GreetingToFileTask
+
+apply plugin: 'groovy'
+apply plugin: GreetingPlugin
+
+// Configure the extension
+greeting {
+    // message = 'Hi'
+    name = 'Jack'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+}
+
+task greet(type: GreetingToFileTask) {
+    destination = { project.greetingFile }
+}
+
+task sayGreeting(dependsOn: greet) {
+    doLast {
+        println file(greetingFile).text
+    }
+}
+
+
+
+ext.greetingFile = "$buildDir/hello.txt"
