@@ -12,6 +12,7 @@ class GreetingPluginTest {
         Project project = ProjectBuilder.builder().build()
         project.pluginManager.apply 'org.samples.greeting'
 
-        Assert.assertTrue(project.tasks.hello instanceof GreetingTask)
+        Assert.assertTrue(project.tasks.hello1 instanceof GreetingTask)
+
     }
 }
