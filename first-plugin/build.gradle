@@ -10,11 +10,12 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 uploadArchives{
     //本地仓库的一种
-    repositories{
+    repositories {
         mavenLocal()
         /*flatDir{
             name "localRepository"
@@ -28,17 +29,21 @@ uploadArchives{
 dependencies {
     compile gradleApi()
     compile localGroovy()
+    compile group: 'commons-io', name: 'commons-io', version: '2.6'
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
 task sourceJar (type : Jar) {
     classifier = 'sources'
-    from sourceSets.main.resources.include("**/*.json")
+    from sourceSets.main.resources.include("/schema/json/**/*.*")
 }
 
 publishing {
     publications {
-        myPublication(MavenPublication) {
+        stubs(MavenPublication) {
+            groupId 'otr-schema'
+            version '1.0'
+            artifactId "service1"
             artifact (sourceJar) {
             }
         }
@@ -47,6 +52,7 @@ publishing {
         maven {
             url "file:/${project.projectDir}/artifacts"
         }
+       // mavenLocal()
     }
 }
 // ./gradlew publish to publish schemas
